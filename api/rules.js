@@ -13,7 +13,12 @@ module.exports = async (req, res) => {
 
   try {
     const rules = await getRulesContent();
-    res.json({ rules });
+    res.json({
+      rules: {
+        ...rules,
+        sheetUrl: process.env.GOOGLE_SHEET_URL || null,
+      },
+    });
   } catch (err) {
     res.status(500).json({ error: 'Failed to load rules' });
   }

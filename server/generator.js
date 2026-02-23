@@ -15,6 +15,17 @@ async function readFileSafe(filePath) {
 }
 
 async function getRulesContent() {
+  // Use Google Sheets if credentials are set
+  if (process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY) {
+    try {
+      const { getRulesFromSheet } = require('./sheets');
+      return await getRulesFromSheet();
+    } catch (err) {
+      console.warn('Google Sheets read failed, falling back to local .md files:', err.message);
+    }
+  }
+
+  // Fallback: read from local .md files
   const rulesDir = path.join(__dirname, 'rules');
   const dataDir = path.join(__dirname, 'data');
 

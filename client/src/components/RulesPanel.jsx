@@ -83,7 +83,7 @@ export default function RulesPanel() {
   }
 
   const tabs = rules && !rules.error
-    ? Object.keys(RULE_LABELS).filter((k) => rules[k] !== undefined)
+    ? Object.keys(RULE_LABELS).filter((k) => rules[k] !== undefined && k !== 'sheetUrl')
     : []
 
   return (
@@ -153,10 +153,22 @@ export default function RulesPanel() {
               </div>
 
               {/* Save button + status */}
-              <div className="px-4 pb-4 flex items-center justify-between gap-3">
-                <p className="text-xs text-gray-400 leading-snug">
-                  Changes apply on the next generation.
-                </p>
+              <div className="px-4 pb-4 flex items-center justify-between gap-3 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <p className="text-xs text-gray-400 leading-snug">
+                    Changes apply on the next generation.
+                  </p>
+                  {rules.sheetUrl && (
+                    <a
+                      href={rules.sheetUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-1 text-xs font-medium text-green-700 bg-green-50 border border-green-200 px-2.5 py-1 rounded-lg hover:bg-green-100 transition-colors whitespace-nowrap"
+                    >
+                      <span>📊</span> Open in Sheets
+                    </a>
+                  )}
+                </div>
                 <button
                   onClick={() => handleSave(activeTab)}
                   disabled={saving}
