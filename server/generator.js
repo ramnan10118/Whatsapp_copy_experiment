@@ -60,8 +60,18 @@ ${rules.dosAndDonts}
 Study these carefully. HIGH CTR examples show what works. LOW CTR — AVOID examples show what to never repeat.
 ${rules.trainingExamples}`;
 
+  const TONE_DEFINITIONS = {
+    direct_claim: 'Direct Claim: Clear, assertive messaging that states the main benefit or offer without buildup.',
+    exclusivity: 'Exclusive: Framing that makes the user feel specially chosen or part of a limited group.',
+    curiosity: 'Curiosity: Creates an information gap that nudges the user to click to "find out."',
+    urgency: 'Urgency: Drives immediate action using time sensitivity or scarcity cues.',
+    safety_anxiety: 'Safety/Anxiety: Triggers protective instincts by highlighting risk, caution, or potential loss.',
+    premium: 'Premium: Positions the offering as high-value, elevated, and aspirational.',
+    friendly: 'Friendly/Conversational: Sounds natural, human, and chat-like rather than promotional.',
+  };
+
   const toneInstruction = tone && tone !== 'auto'
-    ? `- Preferred tone: ${tone.replace(/_/g, ' ')}`
+    ? `- Apply this tone strictly: ${TONE_DEFINITIONS[tone] || tone.replace(/_/g, ' ')}`
     : '- Tone: auto-select the best tone based on campaign context and what has worked historically';
 
   const userPrompt = `Generate ${variantCount} WhatsApp message variants for this campaign.

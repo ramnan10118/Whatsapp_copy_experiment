@@ -11,11 +11,15 @@ ACKO is an Indian digital insurance and car services brand. We're tech-first, di
 - **Smart, not clever**: Clarity wins over wit. If a joke makes the message vague, cut the joke.
 
 ## Tone Variations
-- **Default**: Warm, direct, clear.
-- **For contests/wins**: Excited but not desperate. Confident, not gimmicky. No "OMG!!!" energy.
-- **For service/utility**: Calm, helpful, informative. Like a knowledgeable friend.
-- **For renewals/expiry**: Gentle but honest. Never fearmongering.
-- **For exclusivity**: Personal and specific — "this is for you" not "this is for everyone like you".
+When a tone is specified, apply it strictly. These are the definitions:
+
+- **Direct Claim**: Clear, assertive messaging that states the main benefit or offer without buildup.
+- **Exclusive**: Framing that makes the user feel specially chosen or part of a limited group.
+- **Curiosity**: Creates an information gap that nudges the user to click to "find out."
+- **Urgency**: Drives immediate action using time sensitivity or scarcity cues.
+- **Safety/Anxiety**: Triggers protective instincts by highlighting risk, caution, or potential loss.
+- **Premium**: Positions the offering as high-value, elevated, and aspirational.
+- **Friendly/Conversational**: Sounds natural, human, and chat-like rather than promotional.
 
 ## Language Rules
 - Short sentences. Max 1-2 ideas per sentence.
