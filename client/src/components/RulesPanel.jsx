@@ -64,12 +64,19 @@ export default function RulesPanel() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: rules[key] }),
       })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error)
+      let data = {}
+      const text = await res.text()
+      if (text) data = JSON.parse(text)
+
+      if (data.hosted) {
+        setSaveError('hosted')
+        return
+      }
+      if (!res.ok) throw new Error(data.error || 'Save failed')
       setSavedTab(key)
       setTimeout(() => setSavedTab(null), 2500)
     } catch (err) {
-      setSaveError(err.message || 'Save failed')
+      if (err.message !== 'hosted') setSaveError(err.message || 'Save failed')
     } finally {
       setSaving(false)
     }
@@ -166,7 +173,25 @@ export default function RulesPanel() {
 
               {saveError && (
                 <div className="px-4 pb-3">
-                  <p className="text-xs text-red-500">{saveError}</p>
+                  {saveError === 'hosted' ? (
+                    <div className="bg-amber-50 border border-amber-200 rounded-xl p-3">
+                      <p className="text-xs font-semibold text-amber-800 mb-1">Editing disabled in hosted version</p>
+                      <p className="text-xs text-amber-700 leading-relaxed">
+                        Edit the <code className="bg-amber-100 px-1 rounded">.md</code> files directly in your{' '}
+                        <a
+                          href="https://github.com/ramnan10118/Whatsapp_copy_experiment/tree/main/server"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline font-medium"
+                        >
+                          GitHub repo
+                        </a>
+                        {' '}— Vercel will redeploy automatically with the updated rules.
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-xs text-red-500">{saveError}</p>
+                  )}
                 </div>
               )}
             </>

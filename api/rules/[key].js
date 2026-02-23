@@ -1,10 +1,6 @@
 const path = require('path');
 const fs = require('fs').promises;
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config({ path: path.join(__dirname, '../../.env') });
-}
-
 const FILE_MAP = {
   brandVoice: path.join(__dirname, '../../server/rules/brand-voice.md'),
   playbook: path.join(__dirname, '../../server/rules/whatsapp-playbook.md'),
@@ -18,7 +14,7 @@ module.exports = async (req, res) => {
   }
 
   const { key } = req.query;
-  const { content } = req.body;
+  const { content } = req.body || {};
 
   if (!FILE_MAP[key]) {
     return res.status(400).json({ error: `Unknown rules key: ${key}` });
@@ -29,11 +25,11 @@ module.exports = async (req, res) => {
 
   try {
     await fs.writeFile(FILE_MAP[key], content, 'utf-8');
-    res.json({ success: true });
+    return res.status(200).json({ success: true });
   } catch (err) {
-    console.error('Rules save error:', err.message);
-    res.status(500).json({
-      error: 'Rules cannot be saved in this deployment environment. Edit the files directly in your GitHub repo instead.',
+    return res.status(503).json({
+      hosted: true,
+      error: 'Rule editing is disabled in the hosted version. To update rules, edit the .md files in your GitHub repo — Vercel will redeploy automatically.',
     });
   }
 };
